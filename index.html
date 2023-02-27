@@ -56,6 +56,9 @@
   }
   latestMessageKey = latestKey; // Update the latest message key outside the loop
 });
+    if (message.timestamp > latestMessageTimestamp) {
+  latestMessageTimestamp = message.timestamp;
+}
     // Send a new chat message
     const chatMessageInput = document.getElementById('chat-message-input');
     const chatSendButton = document.getElementById('chat-send-button');
