@@ -39,12 +39,19 @@
 	  // Get a reference to the chat messages node
 	  const chatMessagesRef = ref(database, 'chat-messages');
 	  
+	  // Keep track of the latest message key to prevent duplicate messages
+	  let latestMessageKey = null;
+	  
 	  // Listen for new chat messages
 	  onValue(chatMessagesRef, function(snapshot) {
 	    const messages = snapshot.val();
 	    for (const key in messages) {
-	      const message = messages[key];
-	      displayChatMessage(message);
+	      if (key !== latestMessageKey) {
+	        const message = messages[key];
+	        message.key = key;
+	        displayChatMessage(message);
+	        latestMessageKey = key;
+	      }
 	    }
 	  });
 	  
@@ -73,24 +80,6 @@
 	    
 	    // Add reply-to message if it exists
 	    if (message.replyTo) {
-	      const replyToMessage = document.createElement('div');
-	      const replyToMessageText = messages[message.replyTo].text;
-	      replyToMessage.innerText = '↳ ' + replyToMessageText;
-	      replyToMessage.classList.add('reply-to');
-	      messageElement.appendChild(replyToMessage);
-	    }
-	    
-	    // Add reply-to button
-	    const replyButton = document.createElement('button');
-	    replyButton.innerText = 'Reply';
-	    replyButton.addEventListener('click', function() {
-	      replyToKey = message.key;
-	      chatMessageInput.focus();
-	    });
-	    messageElement.appendChild(replyButton);
-	    
-	    document.getElementById('chat-messages').appendChild(messageElement);
-	  }
-	</body>
-</html>		
-
+	      const replyToMessage
+           </body>
+</html>
