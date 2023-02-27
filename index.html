@@ -67,7 +67,36 @@
 	    const messageElement = document.createElement('div');
 	    messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
 	    document.getElementById('chat-messages').appendChild(messageElement);
-		   <h1>Chat App</h1>
+		   <h1>Tealeaf</h1>
+		    onValue(chatMessagesRef, function(snapshot) {
+	    const messages = snapshot.val();
+	    for (const key in messages) {
+	      const message = messages[key];
+	      displayChatMessage(message);
+	    }
+	  });
+	  
+	  // Send a new chat message
+	  const chatMessageInput = document.getElementById('chat-message-input');
+	  const chatSendButton = document.getElementById('chat-send-button');
+	  
+	  chatSendButton.addEventListener('click', function() {
+	    const messageText = chatMessageInput.value;
+	    const message = {
+	      text: messageText,
+	      timestamp: Date.now()
+	    };
+	    push(chatMessagesRef, message);
+	    chatMessageInput.value = '';
+	  });
+	  
+	  function displayChatMessage(message) {
+	    const messageText = message.text;
+	    const messageTimestamp = message.timestamp;
+	    const messageElement = document.createElement('div');
+	    messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
+	    document.getElementById('chat-messages').appendChild(messageElement);
+	  }
 		  
    <!-- Your JavaScript code -->
 	<src="index.js">
