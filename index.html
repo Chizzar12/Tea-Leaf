@@ -75,7 +75,9 @@
       const messageTimestamp = message.timestamp;
       const messageElement = document.createElement('div');
       messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
+      const chatMessagesDiv = document.getElementById('chat-messages');
+      chatMessagesDiv.appendChild(messageElement);
     }
   </script>
 </body>
-</html>
+</html
