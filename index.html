@@ -7,80 +7,93 @@
 		.sent {
 			color: green;
 		}
-
 		.received {
-			color: blue;
-		}
-	</style>
-</head>
+		color: blue;
+	}
+
+	#chat-message-input {
+		background-color: #f1f1f1;
+		color: #333;
+		border: 2px solid #ccc;
+		border-radius: 4px;
+		padding: 10px;
+		margin-right: 10px;
+		width: 60%;
+		font-size: 16px;
+		resize: none;
+		outline: none;
+	}
+
+	#chat-send-button {
+		background-color: #4CAF50;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		padding: 10px 20px;
+		font-size: 16px;
+		cursor: pointer;
+	}
+
+	#chat-send-button:hover {
+		background-color: #45a049;
+	}
+</style>
+	</head>
 <body>
 	<h1>Chat App</h1>
 	<div id="chat-messages"></div>
 	<input type="text" id="chat-message-input" placeholder="Type your message...">
 	<button type="button" id="chat-send-button">Send</button>
-
 	<!-- Firebase scripts -->
-	<script type="module">
-		// Import the functions you need from the SDKs you need
-		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-		import { getDatabase, ref, onChildAdded, push } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+<script type="module">
+	// Import the functions you need from the SDKs you need
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+	import { getDatabase, ref, onChildAdded, push } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
-		// Your web app's Firebase configuration
-		const firebaseConfig = {
-			apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
-			authDomain: "tealeaf-ef75d.firebaseapp.com",
-			databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
-			projectId: "tealeaf-ef75d",
-			storageBucket: "tealeaf-ef75d.appspot.com",
-			messagingSenderId: "17858960981",
-			appId: "1:17858960981:web:be78be1bb7337f9bd9fedc",
-			measurementId: "G-QDY1D4SYZK"
+	// Your web app's Firebase configuration
+	const firebaseConfig = {
+		apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
+		authDomain: "tealeaf-ef75d.firebaseapp.com",
+		databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
+		projectId: "tealeaf-ef75d",
+		storageBucket: "tealeaf-ef75d.appspot.com",
+		messagingSenderId: "17858960981",
+		appId: "1:17858960981:web:be78be1bb7337f9bd9fedc",
+		measurementId: "G-QDY1D4SYZK"
+	};
+
+	// Initialize Firebase
+	const app = initializeApp(firebaseConfig);
+	const database = getDatabase(app);
+
+	// Get a reference to the chat messages node
+	const chatMessagesRef = ref(database, 'chat-messages');
+
+	// Listen for new chat messages
+	onChildAdded(chatMessagesRef, function(snapshot) {
+		const message = snapshot.val();
+		displayChatMessage(message);
+	});
+
+	// Send a new chat message
+	const chatMessageInput = document.getElementById('chat-message-input');
+	const chatSendButton = document.getElementById('chat-send-button');
+
+	chatSendButton.addEventListener('click', function() {
+		const messageText = chatMessageInput.value;
+		const message = {
+			text: messageText,
+			timestamp: Date.now(),
+			sender: "Me"
 		};
+		push(chatMessagesRef, message);
+		chatMessageInput.value = '';
+	});
 
-		// Initialize Firebase
-		const app = initializeApp(firebaseConfig);
-		const database = getDatabase(app);
-
-		// Get a reference to the chat messages node
-		const chatMessagesRef = ref(database, 'chat-messages');
-
-		// Listen for new chat messages
-		onChildAdded(chatMessagesRef, function(snapshot) {
-			const message = snapshot.val();
-			displayChatMessage(message);
-		});
-
-		// Send a new chat message
-		const chatMessageInput = document.getElementById('chat-message-input');
-		const chatSendButton = document.getElementById('chat-send-button');
-
-		chatSendButton.addEventListener('click', function() {
-			const messageText = chatMessageInput.value;
-			const message = {
-				text: messageText,
-				timestamp: Date.now(),
-				sender: "Me"
-			};
-			push(chatMessagesRef, message);
-			chatMessageInput.value = '';
-		});
-
-		function displayChatMessage(message) {
-			const messageText = message.text;
-			const messageTimestamp = message.timestamp;
-			const messageSender = message.sender;
-
-			const messageElement = document.createElement('div');
-			messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
-
-			if (messageSender === "Me") {
-				messageElement.classList.add('sent');
-			} else {
-				messageElement.classList.add('received');
-			}
-
-			document.getElementById('chat-messages').appendChild(messageElement);
-		}
-	</script>
-</body>
-</html>
+	function displayChatMessage(message) {
+		const messageText = message.text;
+		const messageTimestamp = message.timestamp;
+		const messageSender = message.sender
+	</body>
+     </head>
+</html>		
