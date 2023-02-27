@@ -20,7 +20,7 @@
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
-   apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
+  apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
   authDomain: "tealeaf-ef75d.firebaseapp.com",
   databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "tealeaf-ef75d",
@@ -57,14 +57,12 @@
     // Send a new chat message
     const chatMessageInput = document.getElementById('chat-message-input');
     const chatSendButton = document.getElementById('chat-send-button');
-    let replyToKey = null;
 
     chatSendButton.addEventListener('click', function() {
       const messageText = chatMessageInput.value;
       const message = {
         text: messageText,
-        timestamp: Date.now(),
-        replyTo: replyToKey // add replyTo field to message object
+        timestamp: Date.now()
       };
       push(chatMessagesRef, message);
       chatMessageInput.value = '';
@@ -75,9 +73,8 @@
       const messageTimestamp = message.timestamp;
       const messageElement = document.createElement('div');
       messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
-      const chatMessagesDiv = document.getElementById('chat-messages');
-      chatMessagesDiv.appendChild(messageElement);
+      document.getElementById('chat-messages').appendChild(messageElement);
     }
   </script>
 </body>
-</html
+</html>
