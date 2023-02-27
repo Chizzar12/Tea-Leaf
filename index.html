@@ -9,14 +9,14 @@
 	<script>
 		// Initialize Firebase with your project's credentials
 		var firebaseConfig = {
-			apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
-			authDomain: "tealeaf-ef75d.firebaseapp.com",
-			databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
-			projectId: "tealeaf-ef75d",
-			storageBucket: "tealeaf-ef75d.appspot.com",
-			messagingSenderId: "17858960981",
-			appId: "1:17858960981:web:be78be1bb7337f9bd9fedc",
-			measurementId: "G-QDY1D4SYZK"
+			apiKey: "YOUR_API_KEY",
+			authDomain: "YOUR_AUTH_DOMAIN",
+			databaseURL: "YOUR_DATABASE_URL",
+			projectId: "YOUR_PROJECT_ID",
+			storageBucket: "YOUR_STORAGE_BUCKET",
+			messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+			appId: "YOUR_APP_ID",
+			measurementId: "YOUR_MEASUREMENT_ID"
 		};
 		firebase.initializeApp(firebaseConfig);
 
@@ -75,8 +75,6 @@
 		database.ref('messages').on('value', function(snapshot) {
 			displayMessages(snapshot);
 		});
-            <h1>Chat App</h1>
-   
 	</script>
 
 	<!-- Add your CSS styles here -->
@@ -96,6 +94,27 @@
 
 		.form {
 			margin-bottom: 20px
+		}
+
+		.message {
+			background-color: #e6e6e6;
+			border-radius: 5px;
+			margin-bottom: 10px;
+			padding: 10px;
+		}
+
+		.name {
+			font-weight: bold;
+		}
+
+		.message-text {
+			margin-left: 5px;
+		}
+
+		input[type="text"],
+		textarea {
+			border: none;
 	</style>
+	<body>
 	</body>
 </html>
