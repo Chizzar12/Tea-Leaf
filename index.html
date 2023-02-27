@@ -20,7 +20,7 @@
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
-  apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
+       apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
   authDomain: "tealeaf-ef75d.firebaseapp.com",
   databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "tealeaf-ef75d",
@@ -40,25 +40,24 @@
 
     // Keep track of the latest message key to prevent duplicate messages
     let latestMessageKey = null;
+    let latestMessageTimestamp = 0;
 
     onValue(chatMessagesRef, function(snapshot) {
-  const messages = snapshot.val();
-  let latestKey = latestMessageKey; // Set the latest key to the previous latest key
-  for (const key in messages) {
-    if (key !== latestMessageKey) {
-      const message = messages[key];
-      message.key = key;
-      if (message.timestamp <= latestMessageTimestamp) { // Only display messages that are older than the latest message displayed
-        displayChatMessage(message);
-        latestKey = key; // Update the latest message key
+      const messages = snapshot.val();
+      let latestKey = latestMessageKey; // Set the latest key to the previous latest key
+      for (const key in messages) {
+        if (key !== latestMessageKey) {
+          const message = messages[key];
+          message.key = key;
+          if (message.timestamp > latestMessageTimestamp) { // Only display messages that are newer than the latest message displayed
+            displayChatMessage(message);
+            latestKey = key; // Update the latest message key
+          }
+        }
       }
-    }
-  }
-  latestMessageKey = latestKey; // Update the latest message key outside the loop
-});
-    if (message.timestamp > latestMessageTimestamp) {
-  latestMessageTimestamp = message.timestamp;
-}
+      latestMessageKey = latestKey; // Update the latest message key outside the loop
+    });
+
     // Send a new chat message
     const chatMessageInput = document.getElementById('chat-message-input');
     const chatSendButton = document.getElementById('chat-send-button');
