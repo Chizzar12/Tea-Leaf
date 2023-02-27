@@ -81,6 +81,94 @@
   <script type="module">
     // Your Firebase initialization code here
   </script>
+	<meta charset="UTF-8">
+	<title>Chat App</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #f5f5f5;
+			font-family: Arial, sans-serif;
+		}
+
+		h1 {
+			margin: 0;
+			padding: 20px;
+			background-color: #009688;
+			color: white;
+			text-align: center;
+		}
+
+		#chat-box {
+			max-width: 800px;
+			margin: 20px auto;
+			padding: 20px;
+			background-color: white;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		#chat-messages {
+			margin: 20px 0;
+			padding: 20px;
+			background-color: #f5f5f5;
+			box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.1);
+			min-height: 400px;
+			overflow-y: auto;
+		}
+
+		.chat-message {
+			margin-bottom: 10px;
+		}
+
+		.chat-message p {
+			margin: 0;
+			padding: 10px;
+			border-radius: 10px;
+			max-width: 80%;
+			word-wrap: break-word;
+			background-color: #009688;
+			color: white;
+			float: right;
+		}
+
+		.chat-message .username {
+			margin-bottom: 5px;
+			font-weight: bold;
+			color: #009688;
+			float: left;
+			clear: both;
+		}
+
+		#chat-form {
+			display: flex;
+			margin: 20px 0;
+		}
+
+		#chat-message-input {
+			flex: 1;
+			padding: 10px;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+			margin-right: 10px;
+			outline: none;
+		}
+
+		#chat-send-button {
+			padding: 10px 20px;
+			background-color: #009688;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			cursor: pointer;
+			outline: none;
+		}
+
+		#chat-send-button:hover {
+			background-color: #008080;
+		}
 
   <!-- Your JavaScript code -->
 	<src="index.js">
