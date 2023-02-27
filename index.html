@@ -82,13 +82,13 @@
     });
 
     function displayChatMessage(message) {
-      const messageText = message.text;
-      const messageTimestamp = message.timestamp;
-      const messageElement = document.createElement('div');
-      messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
-      document.getElementById('chat-messages').appendChild(messageElement);
-      latestMessage
-      
+  const messageText = message.text;
+  const messageTimestamp = message.timestamp;
+  const messageElement = document.createElement('div');
+  messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
+  document.getElementById('chat-messages').appendChild(messageElement);
+  latestMessageKey = message.key; // Update the latest message key
+}
     </body>
  </html>
 
