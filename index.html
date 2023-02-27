@@ -94,6 +94,57 @@
 		const messageText = message.text;
 		const messageTimestamp = message.timestamp;
 		const messageSender = message.sender
+		<!-- Firebase scripts -->
+<script type="module">
+	// Import the functions you need from the SDKs you need
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+	import { getDatabase, ref, onChildAdded, push } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
+	// Your web app's Firebase configuration
+	const firebaseConfig = {
+		apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
+		authDomain: "tealeaf-ef75d.firebaseapp.com",
+		databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
+		projectId: "tealeaf-ef75d",
+		storageBucket: "tealeaf-ef75d.appspot.com",
+		messagingSenderId: "17858960981",
+		appId: "1:17858960981:web:be78be1bb7337f9bd9fedc",
+		measurementId: "G-QDY1D4SYZK"
+	};
+
+	// Initialize Firebase
+	const app = initializeApp(firebaseConfig);
+	const database = getDatabase(app);
+
+	// Get a reference to the chat messages node
+	const chatMessagesRef = ref(database, 'chat-messages');
+
+	// Listen for new chat messages
+	onChildAdded(chatMessagesRef, function(snapshot) {
+		const message = snapshot.val();
+		displayChatMessage(message);
+	});
+
+	// Send a new chat message
+	const chatMessageInput = document.getElementById('chat-message-input');
+	const chatSendButton = document.getElementById('chat-send-button');
+
+	chatSendButton.addEventListener('click', function() {
+		const messageText = chatMessageInput.value;
+		const message = {
+			text: messageText,
+			timestamp: Date.now(),
+			sender: "Me"
+		};
+		push(chatMessagesRef, message);
+		chatMessageInput.value = '';
+	});
+
+	function displayChatMessage(message) {
+		const messageText = message.text;
+		const messageTimestamp = message.timestamp;
+		const messageSender = message.sender
+	</script>
 	</body>
      </head>
 </html>		
