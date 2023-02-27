@@ -2,105 +2,85 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Tealeaf</title>
+	<title>Chat App</title>
+	<style>
+		.sent {
+			color: green;
+		}
+
+		.received {
+			color: blue;
+		}
+	</style>
 </head>
 <body>
-	<h1>Text box</h1>
+	<h1>Chat App</h1>
 	<div id="chat-messages"></div>
 	<input type="text" id="chat-message-input" placeholder="Type your message...">
 	<button type="button" id="chat-send-button">Send</button>
 
 	<!-- Firebase scripts -->
 	<script type="module">
-	  // Import the functions you need from the SDKs you need
-	  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-	  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
-	  import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+		// Import the functions you need from the SDKs you need
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+		import { getDatabase, ref, onChildAdded, push } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
-	  // Your web app's Firebase configuration
-	  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-	  const firebaseConfig = {
-	    apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
-	    authDomain: "tealeaf-ef75d.firebaseapp.com",
-	    databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
-	    projectId: "tealeaf-ef75d",
-	    storageBucket: "tealeaf-ef75d.appspot.com",
-	    messagingSenderId: "17858960981",
-	    appId: "1:17858960981:web:be78be1bb7337f9bd9fedc",
-	    measurementId: "G-QDY1D4SYZK"
-	  };
+		// Your web app's Firebase configuration
+		const firebaseConfig = {
+			apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
+			authDomain: "tealeaf-ef75d.firebaseapp.com",
+			databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
+			projectId: "tealeaf-ef75d",
+			storageBucket: "tealeaf-ef75d.appspot.com",
+			messagingSenderId: "17858960981",
+			appId: "1:17858960981:web:be78be1bb7337f9bd9fedc",
+			measurementId: "G-QDY1D4SYZK"
+		};
 
-	  // Initialize Firebase
-	  const app = initializeApp(firebaseConfig);
-	  const analytics = getAnalytics(app);
-	  const database = getDatabase(app);
-	  
-	  // Get a reference to the chat messages node
-	  const chatMessagesRef = ref(database, 'chat-messages');
-	  
-	  // Listen for new chat messages
-	  onValue(chatMessagesRef, function(snapshot) {
-	    const messages = snapshot.val();
-	    for (const key in messages) {
-	      const message = messages[key];
-	      displayChatMessage(message);
-	    }
-	  });
-	  
-	  // Send a new chat message
-	  const chatMessageInput = document.getElementById('chat-message-input');
-	  const chatSendButton = document.getElementById('chat-send-button');
-	  
-	  chatSendButton.addEventListener('click', function() {
-	    const messageText = chatMessageInput.value;
-	    const message = {
-	      text: messageText,
-	      timestamp: Date.now()
-	    };
-	    push(chatMessagesRef, message);
-	    chatMessageInput.value = '';
-	  });
-	  
-	  function displayChatMessage(message) {
-	    const messageText = message.text;
-	    const messageTimestamp = message.timestamp;
-	    const messageElement = document.createElement('div');
-	    messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
-	    document.getElementById('chat-messages').appendChild(messageElement);
-		   <h1>Tealeaf</h1>
-		    onValue(chatMessagesRef, function(snapshot) {
-	    const messages = snapshot.val();
-	    for (const key in messages) {
-	      const message = messages[key];
-	      displayChatMessage(message);
-	    }
-	  });
-	  
-	  // Send a new chat message
-	  const chatMessageInput = document.getElementById('chat-message-input');
-	  const chatSendButton = document.getElementById('chat-send-button');
-	  
-	  chatSendButton.addEventListener('click', function() {
-	    const messageText = chatMessageInput.value;
-	    const message = {
-	      text: messageText,
-	      timestamp: Date.now()
-	    };
-	    push(chatMessagesRef, message);
-	    chatMessageInput.value = '';
-	  });
-	  
-	  function displayChatMessage(message) {
-	    const messageText = message.text;
-	    const messageTimestamp = message.timestamp;
-	    const messageElement = document.createElement('div');
-	    messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
-	    document.getElementById('chat-messages').appendChild(messageElement);
-	  }
-		  
-   <!-- Your JavaScript code -->
-	<src="index.js">
-	  }
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+		const database = getDatabase(app);
+
+		// Get a reference to the chat messages node
+		const chatMessagesRef = ref(database, 'chat-messages');
+
+		// Listen for new chat messages
+		onChildAdded(chatMessagesRef, function(snapshot) {
+			const message = snapshot.val();
+			displayChatMessage(message);
+		});
+
+		// Send a new chat message
+		const chatMessageInput = document.getElementById('chat-message-input');
+		const chatSendButton = document.getElementById('chat-send-button');
+
+		chatSendButton.addEventListener('click', function() {
+			const messageText = chatMessageInput.value;
+			const message = {
+				text: messageText,
+				timestamp: Date.now(),
+				sender: "Me"
+			};
+			push(chatMessagesRef, message);
+			chatMessageInput.value = '';
+		});
+
+		function displayChatMessage(message) {
+			const messageText = message.text;
+			const messageTimestamp = message.timestamp;
+			const messageSender = message.sender;
+
+			const messageElement = document.createElement('div');
+			messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
+
+			if (messageSender === "Me") {
+				messageElement.classList.add('sent');
+			} else {
+				messageElement.classList.add('received');
+			}
+
+			document.getElementById('chat-messages').appendChild(messageElement);
+		}
 	</script>
 </body>
 </html>
