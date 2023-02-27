@@ -20,14 +20,14 @@
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
-       apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
-  authDomain: "tealeaf-ef75d.firebaseapp.com",
-  databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tealeaf-ef75d",
-  storageBucket: "tealeaf-ef75d.appspot.com",
-  messagingSenderId: "17858960981",
-  appId: "1:17858960981:web:be78be1bb7337f9bd9fedc",
-  measurementId: "G-QDY1D4SYZK"
+       apiKey: "YOUR_API_KEY",
+       authDomain: "YOUR_AUTH_DOMAIN",
+       databaseURL: "YOUR_DATABASE_URL",
+       projectId: "YOUR_PROJECT_ID",
+       storageBucket: "YOUR_STORAGE_BUCKET",
+       messagingSenderId: "YOUR_SENDER_ID",
+       appId: "YOUR_APP_ID",
+       measurementId: "YOUR_MEASUREMENT_ID"
     };
 
     // Initialize Firebase
@@ -63,13 +63,22 @@
     const chatSendButton = document.getElementById('chat-send-button');
 
     chatSendButton.addEventListener('click', function() {
-      const messageText = chatMessageInput.value;
+      const messageText = chatMessageInput.value.trim();
+      if (!messageText) return; // Do nothing if message is empty
       const message = {
         text: messageText,
         timestamp: Date.now()
       };
       push(chatMessagesRef, message);
       chatMessageInput.value = '';
+      displayChatMessage(message); // Display message on the screen
+    });
+
+    chatMessageInput.addEventListener('keyup', function(event) {
+      if (event.keyCode === 13) { // Activate send button on enter key
+        event.preventDefault();
+        chatSendButton.click();
+      }
     });
 
     function displayChatMessage(message) {
@@ -78,7 +87,8 @@
       const messageElement = document.createElement('div');
       messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
       document.getElementById('chat-messages').appendChild(messageElement);
-    }
-  </script>
-</body>
-</html>
+      latestMessage
+      
+    </body>
+ </html>
+
