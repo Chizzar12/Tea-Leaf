@@ -28,7 +28,7 @@ database.ref("chat-messages").on("child_added", function(snapshot) {
 // Listen for new chat messages to be added
 chatSendButton.addEventListener("click", function() {
   var chatMessageText = chatMessageInput.value;
-
+ let latestMessageTimestamp = 0;
   // Create a new chat message in Firebase Realtime Database
   var chatMessage = {
     message: chatMessageText
