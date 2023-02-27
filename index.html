@@ -2,10 +2,10 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Chat App</title>
+	<title>Tealeaf</title>
 </head>
 <body>
-	<h1>Chat App</h1>
+	<h1>Text box</h1>
 	<div id="chat-messages"></div>
 	<input type="text" id="chat-message-input" placeholder="Type your message...">
 	<button type="button" id="chat-send-button">Send</button>
@@ -67,6 +67,23 @@
 	    const messageElement = document.createElement('div');
 	    messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
 	    document.getElementById('chat-messages').appendChild(messageElement);
+		   <h1>Chat App</h1>
+  <div id="received-messages"></div>
+  <div id="sent-messages"></div>
+  <input type="text" id="chat-message-input" placeholder="Type your message...">
+  <button type="button" id="chat-send-button">Send</button>
+
+  <!-- Firebase scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
+
+  <!-- Your Firebase configuration -->
+  <script type="module">
+    // Your Firebase initialization code here
+  </script>
+
+  <!-- Your JavaScript code -->
+	<src="index.js">
 	  }
 	</script>
 </body>
