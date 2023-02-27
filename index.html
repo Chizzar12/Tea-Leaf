@@ -55,7 +55,16 @@
   });
   
   // Send a new chat message
-  const chatMessageInput = document.getElementById('chat-message-input');
+  chatSendButton.addEventListener('click', function() {
+  const messageText = chatMessageInput.value;
+  const message = {
+    text: messageText,
+    timestamp: Date.now()
+  };
+  push(chatMessagesRef, message); // push the message to the database
+  chatMessageInput.value = '';
+});
+	const chatMessageInput = document.getElementById('chat-message-input');
   const chatSendButton = document.getElementById('chat-send-button');
   let replyToKey = null;
 
