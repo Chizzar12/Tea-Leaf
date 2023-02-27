@@ -41,19 +41,20 @@
     // Keep track of the latest message key to prevent duplicate messages
     let latestMessageKey = null;
 
-    // Listen for new chat messages
-    onValue(chatMessagesRef, function(snapshot) {
-      const messages = snapshot.val();
-      for (const key in messages) {
-        if (key !== latestMessageKey) {
-          const message = messages[key];
-          message.key = key;
-          displayChatMessage(message);
-          latestMessageKey = key;
-        }
-      }
-    });
-
+   // Listen for new chat messages
+onValue(chatMessagesRef, function(snapshot) {
+  const messages = snapshot.val();
+  let latestKey = null; // Create a separate variable to track the latest message key
+  for (const key in messages) {
+    if (key !== latestMessageKey) {
+      const message = messages[key];
+      message.key = key;
+      displayChatMessage(message);
+      latestKey = key; // Update the latest message key
+    }
+  }
+  latestMessageKey = latestKey; // Update the latest message key outside the loop
+});
     // Send a new chat message
     const chatMessageInput = document.getElementById('chat-message-input');
     const chatSendButton = document.getElementById('chat-send-button');
