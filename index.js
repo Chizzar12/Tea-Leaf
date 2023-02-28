@@ -17,7 +17,7 @@ window.onload = function() {
   // This is very IMPORTANT!! We're going to use "db" a lot.
   var db = firebase.database()
   // We're going to use oBjEcT OrIeNtEd PrOgRaMmInG. Lol
-  class MEME_CHAT{
+  class TEA_LEAF {
     // Home() is used to create the home page
     home(){
       // First clear the body before adding in
@@ -41,7 +41,7 @@ window.onload = function() {
 
       var title = document.createElement('h1')
       title.setAttribute('id', 'title')
-      title.textContent = 'MemeChat 2.0'
+      title.textContent = 'Tealeaf chat 2.0'
 
       title_inner_container.append(title)
       title_container.append(title_inner_container)
@@ -85,7 +85,7 @@ window.onload = function() {
             // Remove the join_container. So the site doesn't look weird.
             join_container.remove()
             // parent = this. But it is not the join_button
-            // It is (MEME_CHAT = this).
+            // It is (TEA_LEAF = this).
             parent.create_chat()
           }
         }else{
