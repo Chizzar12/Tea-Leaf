@@ -1,41 +1,54 @@
-// Chat App JS
+// Initialize Firebase Authentication
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+const auth = getAuth(app);
 
-// Initialize Firebase
-var firebaseConfig = {
-  // Your Firebase configuration
-};
+// Sign in anonymously
+auth.signInAnonymously()
+  .then(() => {
+    console.log('Signed in anonymously');
+  })
+  .catch((error) => {
+    console.error('Error signing in anonymously:', error);
+  });
 
-firebase.initializeApp(firebaseConfig);
+// Display messages in the chat-messages div
+function displayChatMessage(message) {
+  var messageText = message.text;
+  var messageTimestamp = message.timestamp;
+  var messageElement = document.createElement('div');
+  messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
+  document.getElementById('chat-messages').appendChild(messageElement);
+}
 
-// Get a reference to the Firebase Realtime Database
-var database = firebase.database();
-
-// Get the chat message input field and chat send button
-var chatMessageInput = document.getElementById("chat-message-input");
-var chatSendButton = document.getElementById("chat-send-button");
-
-// Get a reference to the chat messages div
-var chatMessages = document.getElementById("chat-messages");
-
-// Listen for new chat messages and display them in real-time
-database.ref("chat-messages").on("child_added", function(snapshot) {
-  var chatMessage = snapshot.val();
-  var chatMessageElement = document.createElement("p");
-  chatMessageElement.innerText = chatMessage.message;
-  chatMessages.appendChild(chatMessageElement);
+// Listen for new chat messages
+onValue(chatMessagesRef, function(snapshot) {
+  const messages = snapshot.val();
+  for (const key in messages) {
+    const message = messages[key];
+    message.key = key;
+    displayChatMessage(message);
+  }
 });
 
-// Listen for new chat messages to be added
-chatSendButton.addEventListener("click", function() {
-  var chatMessageText = chatMessageInput.value;
- let latestMessageTimestamp = 0;
-  // Create a new chat message in Firebase Realtime Database
-  var chatMessage = {
-    message: chatMessageText
+// Send a new chat message
+const chatMessageInput = document.getElementById('chat-message-input');
+const chatSendButton = document.getElementById('chat-send-button');
+
+chatSendButton.addEventListener('click', function() {
+  const messageText = chatMessageInput.value.trim();
+  if (!messageText) return; // Do nothing if message is empty
+  const message = {
+    text: messageText,
+    timestamp: Date.now()
   };
-  database.ref("chat-messages").push(chatMessage);
-
-  // Clear the chat message input field
-  chatMessageInput.value = "";
+  push(chatMessagesRef, message);
+  chatMessageInput.value = '';
+  displayChatMessage(message); // Display message on the screen
 });
 
+chatMessageInput.addEventListener('keyup', function(event) {
+  if (event.keyCode === 13) { // Activate send button on enter key
+    event.preventDefault();
+    chatSendButton.click();
+  }
+});
