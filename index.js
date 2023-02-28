@@ -1,6 +1,20 @@
 // We enclose this in window.onload.
 // So we don't have ridiculous errors.
-window.onload = function() {
+onValue(chatMessagesRef, function(snapshot) {
+      const messages = snapshot.val();
+      let latestKey = latestMessageKey; // Set the latest key to the previous latest key
+      for (const key in messages) {
+        if (key !== latestMessageKey) {
+          const message = messages[key];
+          message.key = key;
+          if (message.timestamp > latestMessageTimestamp) { // Only display messages that are newer than the latest message displayed
+            displayChatMessage(message);
+            latestKey = key; // Update the latest message key
+          }
+        }
+      }
+      latestMessageKey = latestKey; // Update the latest message key outside the loop
+    });
   // Initialize Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
