@@ -80,16 +80,26 @@
       }
     });
  
-    
-	  function displayChatMessage(message) {
-	    const messageText = message.text;
-	    const messageTimestamp = message.timestamp;
-	    const messageElement = document.createElement('div');
-	    messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
-	    document.getElementById('chat-messages').appendChild(messageElement);
-	  }
-	  <link rel="stylesheet" href="index.css"/>
-            <script type="text/javascript" src="index.js">	
+    	var chatMessageInput = document.getElementById('chat-message-input');
+		var chatSendButton = document.getElementById('chat-send-button');
+		
+		chatSendButton.addEventListener('click', function() {
+			var messageText = chatMessageInput.value;
+			var message = {
+				text: messageText,
+				timestamp: Date.now()
+			};
+			chatMessagesRef.push(message);
+			chatMessageInput.value = '';
+		});
+		
+		function displayChatMessage(message) {
+			var messageText = message.text;
+			var messageTimestamp = message.timestamp;
+			var messageElement = document.createElement('div');
+			messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
+			document.getElementById('chat-messages').appendChild(messageElement);
+		}	
 	</script>
 </body>
 </html>
