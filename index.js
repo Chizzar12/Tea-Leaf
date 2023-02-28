@@ -327,7 +327,7 @@ window.onload = function() {
     }
   }
   // So we've "built" our app. Let's make it work!!
-  var app = new MEME_CHAT()
+  var app = new Tea_Leaf ()
   // If we have a name stored in localStorage.
   // Then use that name. Otherwise , if not.
   // Go to home.
