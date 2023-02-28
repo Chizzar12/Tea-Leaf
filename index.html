@@ -79,18 +79,33 @@
         chatSendButton.click();
       }
     });
- 
-    	function displayChatMessage(message) {
-  var messageText = message.text;
-  var messageTimestamp = message.timestamp;
-  var messageElement = document.createElement('div');
-  messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
-  if (message.sender === firebase.auth().currentUser.uid) {
-    document.getElementById('sent-messages').appendChild(messageElement);
-  } else {
-    document.getElementById('received-messages').appendChild(messageElement);
-  }
-}
+// Handle displaying messages from the Firebase Realtime Database
+		function displayMessages(snapshot) {
+			var messages = document.getElementById('messages');
+			messages.innerHTML = ''; // clear the existing messages
+
+			snapshot.forEach(function(childSnapshot) {
+				// Get the message data
+				var messageData = childSnapshot.val();
+
+				// Create a new message element
+				var messageElement = document.createElement('div');
+				messageElement.className = 'message';
+
+				// Add the name and message to the element
+				var nameElement = document.createElement('span');
+				nameElement.className = 'name';
+				nameElement.textContent = messageData.name + ': ';
+				messageElement.appendChild(nameElement);
+
+				var messageTextElement = document.createElement('span');
+				messageTextElement.className = 'message-text';
+				messageTextElement.textContent = messageData.message;
+				messageElement.appendChild(messageTextElement);
+
+				// Add the message element to the messages container
+				messages.appendChild(messageElement);
+			});
 		}
 		<link rel="stylesheet" href="index.css"/>
             <script type="text/javascript" src="index.js">
