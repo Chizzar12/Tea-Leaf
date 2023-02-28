@@ -1,23 +1,9 @@
 // We enclose this in window.onload.
 // So we don't have ridiculous errors.
-onValue(chatMessagesRef, function(snapshot) {
-      const messages = snapshot.val();
-      let latestKey = latestMessageKey; // Set the latest key to the previous latest key
-      for (const key in messages) {
-        if (key !== latestMessageKey) {
-          const message = messages[key];
-          message.key = key;
-          if (message.timestamp > latestMessageTimestamp) { // Only display messages that are newer than the latest message displayed
-            displayChatMessage(message);
-            latestKey = key; // Update the latest message key
-          }
-        }
-      }
-      latestMessageKey = latestKey; // Update the latest message key outside the loop
-    });
-  // Initialize Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
+window.onload = function() {
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+   apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
     authDomain: "tealeaf-ef75d.firebaseapp.com",
     databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "tealeaf-ef75d",
@@ -27,12 +13,11 @@ onValue(chatMessagesRef, function(snapshot) {
     measurementId: "G-QDY1D4SYZK"
   };
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  firebase.initializeApp(firebaseConfig);
   // This is very IMPORTANT!! We're going to use "db" a lot.
   var db = firebase.database()
   // We're going to use oBjEcT OrIeNtEd PrOgRaMmInG. Lol
-  class Tea_leaf{
+  class MEME_CHAT{
     // Home() is used to create the home page
     home(){
       // First clear the body before adding in
@@ -56,7 +41,7 @@ onValue(chatMessagesRef, function(snapshot) {
 
       var title = document.createElement('h1')
       title.setAttribute('id', 'title')
-      title.textContent = 'Tealeaf'
+      title.textContent = 'MemeChat 2.0'
 
       title_inner_container.append(title)
       title_container.append(title_inner_container)
@@ -84,8 +69,8 @@ onValue(chatMessagesRef, function(snapshot) {
 
       var join_input = document.createElement('input')
       join_input.setAttribute('id', 'join_input')
-      join_input.setAttribute('maxlength', 100)
-      join_input.placeholder = 'your name bitch'
+      join_input.setAttribute('maxlength', 15)
+      join_input.placeholder = 'No.... It\'s Patrick Star'
       // Every time we type into the join_input
       join_input.onkeyup  = function(){
         // If the input we have is longer that 0 letters
@@ -342,7 +327,7 @@ onValue(chatMessagesRef, function(snapshot) {
     }
   }
   // So we've "built" our app. Let's make it work!!
-  var app = new Tea_leaf()
+  var app = new MEME_CHAT()
   // If we have a name stored in localStorage.
   // Then use that name. Otherwise , if not.
   // Go to home.
@@ -350,299 +335,3 @@ onValue(chatMessagesRef, function(snapshot) {
     app.chat()
   }
 }
-
-
-CSS
-
-body{
-  /* https://www.color-hex.com/color/d3d3d3 */
-  background-color: #fff; /*#f6f6f6, EBEBD3, fafafa*/
-  font-family: Bungee Outline;
-  font-weight: 900;
-
-  overflow: hidden;
-  animation: blur 0.5s ease-out;
-
-}
-*{
-  outline: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-#title_container{
-  width: 100%;
-  height: 225px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: #D64045;/*#467599;*/
-  border-bottom: 5px solid #fff;
-  box-shadow: 0 0 30px -18px #D64045;
-
-}
-#title_inner_container{
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  /* background-color: #083D77; */
-  border-radius: 200px;
-}
-#title{
-  display: inline-block;
-  color: #fff;/*EBEBD3, C5283D*/
-  font-size: 55px;
-  letter-spacing: 2px;
-  user-select: none;
-}
-
-#join_container{
-  width: 100%;
-  height: 200px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  float: left;
-  margin-top: 80px;
-
-}
-#join_inner_container{
-  width: 50%;
-  height: 100%;
-}
-#join_input_container{
-  width: 100%;
-  height: 50px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  float: left;
-}
-#join_input{
-  width: 60%;
-  height: 40px;
-
-  color: #1D3354;
-  font-family: Varela Round;
-  font-size: 15px;
-  font-weight: bold;
-  text-align: center;
-  background-color: Transparent;
-  border-bottom: 2px dashed #1D3354;
-
-}
-#join_input:focus{
-  box-shadow: 0 10px 30px -17px #1D3354;
-}
-#join_button_container{
-  width: 100%;
-  height: 50px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  float: left;
-}
-#join_button{
-  width: 60%;
-  height: 40px;
-
-  font-family: Varela Round;
-  font-size: 15px;
-  font-weight: bold;
-  text-align: center;
-  color: #fff;
-}
-
-#chat_container{
-  width: 100%;
-  height: 450px;
-
-  display: flex;
-  justify-content: center;
-
-  float: left;
-  margin-top: 40px;
-  /* Fade in container */
-  animation: fadeIn 1s linear;
-
-}
-#chat_inner_container{
-  width: 40%;
-  height: 100%;
-}
-#chat_content_container{
-  width: 100%;
-  height: 90%;
-
-  float: left;
-  overflow-y: auto;
-  font-family: Varela Round;
-
-  padding-left: 15px;
-  padding-right: 15px;
-}
-#chat_input_container{
-  width: 100%;
-  height: 10%;
-
-  float: left;
-  border-bottom: 2px dashed #1D3354;
-  background-color: Transparent;
-
-  padding-left: 15px;
-  padding-right: 15px;
-  font-family: Varela Round;
-  margin-top: 10px;
-}
-#chat_input{
-  width: 95%;
-  height: 100%;
-  float: left;
-  background-color: Transparent;
-  color: #1D3354;
-  font-size: 15px;
-}
-#chat_input_send{
-  width: 5%;
-  height: 100%;
-  float: left;
-  font-size: 18px;
-  background-color: Transparent;
-  text-align: right;
-  color: #ccc;
-}
-#chat_input_send.enabled{
-  color: #D64045;
-  background-color: Transparent;
-  cursor: pointer;
-
-}
-#chat_logout_container{
-  width: 100%;
-  display: inline-block;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  float: left;
-  margin-top: 20px;
-}
-#chat_logout{
-  color: #D64045;
-  cursor: pointer;
-}
-#chat_logout:hover{
-  text-decoration: underline;
-}
-.message_container{
-  width: 100%;
-  display: inline-block;
-  margin-bottom: 20px;
-
-}
-.message_inner_container{
-  width: 100%;
-  display: inline-block;
-
-  color: #1D3354;
-}
-.message_user_container{
-  width: 100%;
-  display: inline-block;
-}
-.message_user{
-  font-weight: bold;
-  font-size: 14px;
-}
-.message_content_container{
-  width: 100%;
-  display: inline-block;
-
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-.message_content{
-  font-weight: normal;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-.enabled{
-  transition: background-color 0.5s;
-  color: #fff;
-  background-color: #D64045; /*#5B7553;*/
-  cursor: pointer;
-}
-#title_container.chat_title_container{
-  transition: 0.8s;
-  transition-timing-function: ease-in-out;
-  height: 100px;
-}
-#title.chat_title{
-  transition: 0.8s;
-  font-size: 47px;
-}
-.loader_container{
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.loader {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-
-  border-top: 6px solid #D64045;
-  border-bottom: 6px solid #1D3354;
-  border-left: 6px solid #E9FFF9;
-  border-right: 6px solid #E9FFF9;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-@keyframes fadeIn {
-   0% {opacity: 0;}
-   100% {opacity: 1;}
-}
-@keyframes blur {
-  0% {filter: blur(5px);}
-  100% {}
-}
-::selection {
-  background-color: #D64045;
-  color: #fff;
-}
-/* width */
-::-webkit-scrollbar {
-  width: 6px;
-}
-/* Track */
-::-webkit-scrollbar-track {
-  background: #cccs;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #D64045;
-  border-radius: 5px;
-}
-
