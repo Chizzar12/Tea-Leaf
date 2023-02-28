@@ -67,7 +67,7 @@ window.onload = function() {
       var join_input_container = document.createElement('div')
       join_input_container.setAttribute('id', 'join_input_container')
 
-          var join_input = document.createElement('input')
+      var join_input = document.createElement('input')
       join_input.setAttribute('id', 'join_input')
       join_input.setAttribute('maxlength', 15)
       join_input.placeholder = 'No.... It\'s Patrick Star'
