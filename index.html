@@ -1,99 +1,22 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Chat App</title>
-  <link rel="stylesheet" href="index.css"/>
-</head>
-<body>
-  <h1>Chat App</h1>
-  <div id="chat-messages"></div>
-  <input type="text" id="chat-message-input" placeholder="Type your message...">
-  <button type="button" id="chat-send-button">Send</button>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> tealeaf </title>
+    <!-- Google fonts. -->
+    <link href='https://fonts.googleapis.com/css?family=Bungee Outline' rel='stylesheet'/>
+    <link href='https://fonts.googleapis.com/css?family=Varela Round' rel='stylesheet'/>
+    <!-- Use font awesome icons. -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-- Use firebase app and database. -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
 
-  <!-- Firebase scripts -->
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
-    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+    <!-- The CSS and JS file must be declared after the things above-->
+    <link rel="stylesheet" href="index.css"/>
+    <script type="text/javascript" src="index.js"></script>
 
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
-	    authDomain: "tealeaf-ef75d.firebaseapp.com",
-	    databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
-	    projectId: "tealeaf-ef75d",
-	    storageBucket: "tealeaf-ef75d.appspot.com",
-	    messagingSenderId: "17858960981",
-	    appId: "1:17858960981:web:be78be1bb7337f9bd9fedc",
-	    measurementId: "G-QDY1D4SYZK"
-    };
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const database = getDatabase(app);
-
-    // Get a reference to the chat messages node
-    const chatMessagesRef = ref(database, 'chat-messages');
-
-    // Keep track of the latest message key to prevent duplicate messages
-    let latestMessageKey = null;
-    let latestMessageTimestamp = 0;
-
-    onValue(chatMessagesRef, function(snapshot) {
-      const messages = snapshot.val();
-      let latestKey = latestMessageKey; // Set the latest key to the previous latest key
-      for (const key in messages) {
-        if (key !== latestMessageKey) {
-          const message = messages[key];
-          message.key = key;
-          if (message.timestamp > latestMessageTimestamp) { // Only display messages that are newer than the latest message displayed
-            displayChatMessage(message);
-            latestKey = key; // Update the latest message key
-          }
-        }
-      }
-      latestMessageKey = latestKey; // Update the latest message key outside the loop
-    });
-
-    // Send a new chat message
-    const chatMessageInput = document.getElementById('chat-message-input');
-    const chatSendButton = document.getElementById('chat-send-button');
-
-    chatSendButton.addEventListener('click', function() {
-      const messageText = chatMessageInput.value.trim();
-      if (!messageText) return; // Do nothing if message is empty
-      const message = {
-        text: messageText,
-        timestamp: Date.now()
-      };
-      push(chatMessagesRef, message);
-      chatMessageInput.value = '';
-      displayChatMessage(message); // Display message on the screen
-    });
-
-    chatMessageInput.addEventListener('keyup', function(event) {
-      if (event.keyCode === 13) { // Activate send button on enter key
-        event.preventDefault();
-        chatSendButton.click();
-      }
-    });
-
-    // Handle displaying messages from the Firebase Realtime Database
-    function displayChatMessage(message) {
-      const chatMessagesDiv = document.getElementById('chat-messages');
-      const messageDiv = document.createElement('div');
-      messageDiv.className = 'message';
-      const textDiv = document.createElement('div');
-      Div.textContent = message.text;
-const timestampDiv = document.createElement('div');
-timestampDiv.className = 'message-timestamp';
-timestampDiv.textContent = new Date(message.timestamp).toLocaleString();
-messageDiv.appendChild(textDiv);
-messageDiv.appendChild(timestampDiv);
-chatMessagesDiv.appendChild(messageDiv);
-}
-	</script>
-	</body>
+  </head>
+  <body>
+  </body>
 </html>
