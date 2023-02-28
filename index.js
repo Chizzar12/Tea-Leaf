@@ -3,7 +3,7 @@
 window.onload = function() {
   // Your web app's Firebase configuration
   var firebaseConfig = {
-   apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
+     apiKey: "AIzaSyBBtCcFLiEtdn3iZEDj281Kx9LbykycuaE",
     authDomain: "tealeaf-ef75d.firebaseapp.com",
     databaseURL: "https://tealeaf-ef75d-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "tealeaf-ef75d",
@@ -17,7 +17,7 @@ window.onload = function() {
   // This is very IMPORTANT!! We're going to use "db" a lot.
   var db = firebase.database()
   // We're going to use oBjEcT OrIeNtEd PrOgRaMmInG. Lol
-  class TEA_LEAF{
+  class MEME_CHAT{
     // Home() is used to create the home page
     home(){
       // First clear the body before adding in
@@ -41,7 +41,7 @@ window.onload = function() {
 
       var title = document.createElement('h1')
       title.setAttribute('id', 'title')
-      title.textContent = 'Tealeaf 2.0'
+      title.textContent = 'MemeChat 2.0'
 
       title_inner_container.append(title)
       title_container.append(title_inner_container)
