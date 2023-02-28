@@ -80,25 +80,17 @@
       }
     });
  
-    	var chatMessageInput = document.getElementById('chat-message-input');
-		var chatSendButton = document.getElementById('chat-send-button');
-		
-		chatSendButton.addEventListener('click', function() {
-			var messageText = chatMessageInput.value;
-			var message = {
-				text: messageText,
-				timestamp: Date.now()
-			};
-			chatMessagesRef.push(message);
-			chatMessageInput.value = '';
-		});
-		
-		function displayChatMessage(message) {
-			var messageText = message.text;
-			var messageTimestamp = message.timestamp;
-			var messageElement = document.createElement('div');
-			messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
-			document.getElementById('chat-messages').appendChild(messageElement);
+    	function displayChatMessage(message) {
+  var messageText = message.text;
+  var messageTimestamp = message.timestamp;
+  var messageElement = document.createElement('div');
+  messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
+  if (message.sender === firebase.auth().currentUser.uid) {
+    document.getElementById('sent-messages').appendChild(messageElement);
+  } else {
+    document.getElementById('received-messages').appendChild(messageElement);
+  }
+}
 		}	
 	</script>
 </body>
