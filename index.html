@@ -37,7 +37,21 @@
     // Get a reference to the chat messages node
     const chatMessagesRef = ref(database, 'chat-messages');
 
-    // Keep track of the latest message key to prevent duplicate messages
+	   const timeout = 300000; // 5 minutes
+  setTimeout(function() {
+    messageElement.remove();
+  }, timeout);
+}
+
+  // Add auto-delete feature
+  const timeout = 300000; // 5 minutes
+  setTimeout(function() {
+    messageElement.remove();
+  }, timeout);
+}
+
+
+	  // Keep track of the latest message key to prevent duplicate messages
     let latestMessageKey = null;
     let latestMessageTimestamp = 0;
 
