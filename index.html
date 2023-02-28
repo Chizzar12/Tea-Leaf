@@ -79,18 +79,16 @@
         chatSendButton.click();
       }
     });
-
-    function displayChatMessage(message) {
-  const messageText = message.text;
-  const messageTimestamp = message.timestamp;
-  const messageElement = document.createElement('div');
-  messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
-  document.getElementById('chat-messages').appendChild(messageElement);
-  latestMessageKey = message.key; // Update the latest message key
-}
-     <link rel="stylesheet" href="index.css"/>
+ 
+	  function displayChatMessage(message) {
+	    const messageText = message.text;
+	    const messageTimestamp = message.timestamp;
+	    const messageElement = document.createElement('div');
+	    messageElement.innerText = messageText + ' - ' + new Date(messageTimestamp).toLocaleString();
+	    document.getElementById('chat-messages').appendChild(messageElement);
+	  }
+	  <link rel="stylesheet" href="index.css"/>
             <script type="text/javascript" src="index.js">	
-  </script>
-    </body>
- </html>
-
+	</script>
+</body>
+</html>
