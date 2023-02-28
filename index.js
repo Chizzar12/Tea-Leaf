@@ -17,7 +17,7 @@ window.onload = function() {
   // This is very IMPORTANT!! We're going to use "db" a lot.
   var db = firebase.database()
   // We're going to use oBjEcT OrIeNtEd PrOgRaMmInG. Lol
-  class MEME_CHAT{
+  class TEA_LEAF{
     // Home() is used to create the home page
     home(){
       // First clear the body before adding in
@@ -41,7 +41,7 @@ window.onload = function() {
 
       var title = document.createElement('h1')
       title.setAttribute('id', 'title')
-      title.textContent = 'MemeChat 2.0'
+      title.textContent = 'TeaLeaf 2.0'
 
       title_inner_container.append(title)
       title_container.append(title_inner_container)
@@ -327,7 +327,7 @@ window.onload = function() {
     }
   }
   // So we've "built" our app. Let's make it work!!
-  var app = new MEME_CHAT()
+  var app = new TEA_LEAF()
   // If we have a name stored in localStorage.
   // Then use that name. Otherwise , if not.
   // Go to home.
